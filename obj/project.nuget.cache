@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jONjL4Q40D7YimqdBeoeRWYJEoe/beus6/m08uM14WPYrM8s8aEutjKabCjfdrMyMkPyUg0Ap0+gfK4s/Tizyw==",
+  "dgSpecHash": "vSi4WwwopofgWnuYdY4HJ/qp72yqTCOBX0UToLKZTRu2jtTD2YSu3xCfeItyUxL5TRTjjeJRiXDRW8yR4+iCNw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Knut Edvard Kjersem\\RiderProjects\\RoomService\\RoomService\\RoomService.csproj",
+  "projectFilePath": "C:\\Users\\Knut Edvard Kjersem\\RiderProjects\\JulianPMS\\RoomService\\RoomService\\RoomService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.6\\microsoft.aspnetcore.openapi.8.0.6.nupkg.sha512",

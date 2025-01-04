@@ -9,4 +9,5 @@ public interface IRoomService
     Task<Room> AddRoomAsync(Room room);
     Task<Room?> UpdateRoomAsync(int id, Room updatedRoom);
     Task<bool> DeleteRoomAsync(int id);
+    Task<Room> GetRoomByRoomNumberAsync(string roomNumber);
 }

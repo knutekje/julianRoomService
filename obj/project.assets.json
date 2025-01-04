@@ -3620,11 +3620,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Knut Edvard Kjersem\\RiderProjects\\RoomService\\RoomService\\RoomService.csproj",
+      "projectUniqueName": "C:\\Users\\Knut Edvard Kjersem\\RiderProjects\\JulianPMS\\RoomService\\RoomService\\RoomService.csproj",
       "projectName": "RoomService",
-      "projectPath": "C:\\Users\\Knut Edvard Kjersem\\RiderProjects\\RoomService\\RoomService\\RoomService.csproj",
+      "projectPath": "C:\\Users\\Knut Edvard Kjersem\\RiderProjects\\JulianPMS\\RoomService\\RoomService\\RoomService.csproj",
       "packagesPath": "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Knut Edvard Kjersem\\RiderProjects\\RoomService\\RoomService\\obj\\",
+      "outputPath": "C:\\Users\\Knut Edvard Kjersem\\RiderProjects\\JulianPMS\\RoomService\\RoomService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -11,8 +11,8 @@ using RoomService.Data;
 namespace RoomService.Migrations
 {
     [DbContext(typeof(RoomDbContext))]
-    [Migration("20250103210428_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250104201058_Intial")]
+    partial class Intial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,9 +34,6 @@ namespace RoomService.Migrations
 
                     b.Property<int>("Capacity")
                         .HasColumnType("integer");
-
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("boolean");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");

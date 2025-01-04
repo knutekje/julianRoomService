@@ -7,6 +7,7 @@ namespace RoomService.Services;
 public class RoomService : IRoomService
 {
     private readonly RoomDbContext _context;
+    private IRoomService _roomServiceImplementation;
 
     public RoomService(RoomDbContext context)
     {
@@ -41,7 +42,6 @@ public class RoomService : IRoomService
         room.RoomNumber = updatedRoom.RoomNumber;
         room.RoomType = updatedRoom.RoomType;
         room.Capacity = updatedRoom.Capacity;
-        room.IsAvailable = updatedRoom.IsAvailable;
         room.Status = updatedRoom.Status;
         room.Price = updatedRoom.Price;
 
@@ -60,5 +60,11 @@ public class RoomService : IRoomService
         _context.Rooms.Remove(room);
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<Room?> GetRoomByRoomNumberAsync(string roomNumber)
+    {
+        return await _context.Rooms.FindAsync(roomNumber);
+        
     }
 }

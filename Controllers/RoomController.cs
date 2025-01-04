@@ -61,5 +61,16 @@ public class RoomsController : ControllerBase
         }
         return NoContent();
     }
+    [HttpGet("available")]
+    public async Task<ActionResult<Room>> GetRoomByRoomNumber(string roomNumber)
+    {
+        var room = await _roomService.GetRoomByRoomNumberAsync(roomNumber);
+        if (room == null)
+        {
+            return NotFound();
+        }
+        return Ok(room);
+    }
+    
 }
 

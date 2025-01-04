@@ -32,9 +32,6 @@ namespace RoomService.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("boolean");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
