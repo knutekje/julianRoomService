@@ -279,3 +279,11 @@ C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\obj
 C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\obj\Debug\net8.0\RoomService.pdb
 C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\obj\Debug\net8.0\RoomService.genruntimeconfig.cache
 C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\obj\Debug\net8.0\ref\RoomService.dll
+C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Knut Edvard Kjersem\RiderProjects\JulianPMS\RoomService\RoomService\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

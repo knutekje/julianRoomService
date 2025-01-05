@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RoomService.Models;
 using RoomService.Services;
 
@@ -14,7 +15,8 @@ public class RoomsController : ControllerBase
     {
         _roomService = roomService;
     }
-
+    
+    [Authorize(Policy = "AdminOnly")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
     {
@@ -32,8 +34,9 @@ public class RoomsController : ControllerBase
         }
         return Ok(room);
     }
-
-    [HttpPost]
+    
+    [Authorize(Policy = "AdminOnly")]
+    [HttpPost("add-room")]
     public async Task<ActionResult<Room>> PostRoom(Room room)
     {
         var createdRoom = await _roomService.AddRoomAsync(room);
