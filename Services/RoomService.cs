@@ -67,4 +67,15 @@ public class RoomService : IRoomService
         return await _context.Rooms.FindAsync(roomNumber);
         
     }
+    
+    public async Task<IEnumerable<Room>> GetDirtyRoomsAsync()
+    {
+        // Query to fetch rooms where the status is 'In Need of Cleaning'
+        return await _context.Rooms
+            .Where(r => r.Status == "In Need of Cleaning")
+            .ToListAsync();
+    }
+
+    
+    
 }

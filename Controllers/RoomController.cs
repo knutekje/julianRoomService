@@ -72,5 +72,21 @@ public class RoomsController : ControllerBase
         return Ok(room);
     }
     
-}
+  
+
+        [HttpGet("dirty-rooms")]
+        public async Task<ActionResult<IEnumerable<Room>>> GetDirtyRooms()
+        {
+            var dirtyRooms = await _roomService.GetDirtyRoomsAsync();
+            if (!dirtyRooms.Any())
+            {
+                return NotFound("No dirty rooms found.");
+            }
+
+            return Ok(dirtyRooms);
+        }
+    }
+
+    
+
 

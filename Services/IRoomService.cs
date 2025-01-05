@@ -10,4 +10,6 @@ public interface IRoomService
     Task<Room?> UpdateRoomAsync(int id, Room updatedRoom);
     Task<bool> DeleteRoomAsync(int id);
     Task<Room> GetRoomByRoomNumberAsync(string roomNumber);
+
+    Task<IEnumerable<Room>> GetDirtyRoomsAsync();
 }
