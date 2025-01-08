@@ -19,6 +19,10 @@ public class JwtMiddleware
     public async Task Invoke(HttpContext context)
     {
         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+        Console.WriteLine(token);
+        Console.WriteLine("THIS IS THE KEY " + (_configuration["AuthSettings:Secret"]));
+        
+        
         if (token != null)
         {
             try
@@ -27,34 +31,58 @@ public class JwtMiddleware
             }
             catch
             {
-                // Token validation failed; skip attaching user
+                Console.WriteLine("Invalid token");
             }
         }
 
         await _next(context);
     }
 
+   
     private void AttachUserToContext(HttpContext context, string token)
     {
-        var key = Encoding.UTF8.GetBytes(_configuration["JwtSettings:Secret"]);
-        var tokenHandler = new JwtSecurityTokenHandler();
-        tokenHandler.ValidateToken(token, new TokenValidationParameters
+        try
         {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidIssuer = _configuration["JwtSettings:Issuer"],
-            ValidAudience = _configuration["JwtSettings:Audience"],
-            ClockSkew = TimeSpan.Zero
-        }, out var validatedToken);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_configuration["AuthSettings:Secret"]);
 
-        var jwtToken = (JwtSecurityToken)validatedToken;
-        var userId = jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
-        var role = jwtToken.Claims.First(x => x.Type == ClaimTypes.Role).Value;
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = _configuration["AuthSettings:Issuer"],
+                ValidAudience = _configuration["AuthSettings:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ClockSkew = TimeSpan.FromMinutes(15)
+            };
 
-        // Attach claims to context for use in endpoints
-        context.Items["UserId"] = userId;
-        context.Items["Role"] = role;
+            // Validate the token
+            var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
+
+            // Attach user claims to the context
+            context.Items["User"] = principal;
+
+            Console.WriteLine("Token successfully validated");
+            Console.WriteLine($"Token Expiration: {((JwtSecurityToken)validatedToken).ValidTo}");
+        }
+        catch (SecurityTokenExpiredException ex)
+        {
+            Console.WriteLine("Token validation failed: Token is expired.");
+            throw new UnauthorizedAccessException("Token is expired", ex);
+        }
+        catch (SecurityTokenException ex)
+        {
+            Console.WriteLine($"Token validation failed: {ex.Message}");
+            throw new UnauthorizedAccessException("Token is invalid", ex);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+            throw;
+        }
     }
+
+
 }

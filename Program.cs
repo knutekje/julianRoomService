@@ -13,21 +13,12 @@ builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        policy =>
-        {
-            policy
-                .WithOrigins(
-                    "http://192.168.100.109:8081",
-                    "http://localhost:8081",
-                    "http://localhost:3000",
-                    "http://localhost:3001",
-                    "http://localhost:5174",
-                    "http://localhost:5172")
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                ;
-        });
+    options.AddPolicy("ApiGatewayPolicy", builder =>
+    {
+        builder.WithOrigins("http://nginx", "https://nginx") // NGINX service in Docker
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
 });
 
 // Add services to the container.
@@ -38,20 +29,6 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<RoomDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<AuthServiceClient>();
-
-
-
-/*
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(8081); // HTTP
-    options.ListenAnyIP(8444, listenOptions =>
-    {
-        listenOptions.UseHttps(
-            builder.Configuration["MYAPP_CERT_PATH"],
-            builder.Configuration["MYAPP_CERT_PASSWORD"]);
-    });
-});*/
 
 builder.Services.AddHttpClient<AuthServiceClient>(client =>
 {
@@ -98,6 +75,37 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ReceptionistOrAdmin", policy => policy.RequireRole("Receptionist", "Admin"));
 });
 
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+       
+        var jwtSettings = builder.Configuration.GetSection("AuthSettings");
+        var secret = jwtSettings.GetValue<string>("Secret");
+
+        if (string.IsNullOrWhiteSpace(secret))
+        {
+            throw new InvalidOperationException("JWT Secret is not configured properly.");
+        }
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings.GetValue<string>("Issuer"),
+            ValidAudience = jwtSettings.GetValue<string>("Audience"),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
+        };
+    });
+
+builder.Services.AddAuthentication();
+
+
 
 
 builder.Services.AddScoped<IRoomService, RoomService.Services.RoomService>();
@@ -116,12 +124,13 @@ if (app.Environment.IsDevelopment())
 }
 app.UseMiddleware<JwtMiddleware>();
 
-app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 app.MapControllers();
-app.UseCors("AllowAll");
+app.UseCors("ApiGatewayPolicy");
 
 app.Run();
 

@@ -16,7 +16,6 @@ public class RoomsController : ControllerBase
         _roomService = roomService;
     }
     
-    [Authorize(Policy = "AdminOnly")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
     {
@@ -35,7 +34,14 @@ public class RoomsController : ControllerBase
         return Ok(room);
     }
     
-    [Authorize(Policy = "AdminOnly")]
+    /*[Authorize(Roles = "Admin")]
+    [HttpGet("debug-token")]
+    public IActionResult DebugToken()
+    {
+        var claims = User.Claims.Select(c => new { c.Type, c.Value });
+        return Ok(claims);
+    }*/
+    
     [HttpPost("add-room")]
     public async Task<ActionResult<Room>> PostRoom(Room room)
     {

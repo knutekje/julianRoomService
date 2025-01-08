@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "NCzNYTDylA4=",
+  "dgSpecHash": "bchAk5n1kaQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\Knut Edvard Kjersem\\RiderProjects\\JulianPMS\\RoomService\\RoomService\\RoomService.csproj",
   "expectedPackageFiles": [
@@ -37,12 +37,12 @@
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.extensions.options\\9.0.0\\microsoft.extensions.options.9.0.0.nupkg.sha512",
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\9.0.0\\microsoft.extensions.options.configurationextensions.9.0.0.nupkg.sha512",
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.0\\microsoft.extensions.primitives.9.0.0.nupkg.sha512",
-    "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.3.0\\microsoft.identitymodel.abstractions.8.3.0.nupkg.sha512",
+    "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.0.3\\microsoft.identitymodel.abstractions.7.0.3.nupkg.sha512",
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\7.0.3\\microsoft.identitymodel.jsonwebtokens.7.0.3.nupkg.sha512",
-    "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.identitymodel.logging\\8.3.0\\microsoft.identitymodel.logging.8.3.0.nupkg.sha512",
+    "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.identitymodel.logging\\7.0.3\\microsoft.identitymodel.logging.7.0.3.nupkg.sha512",
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.identitymodel.protocols\\7.0.3\\microsoft.identitymodel.protocols.7.0.3.nupkg.sha512",
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\7.0.3\\microsoft.identitymodel.protocols.openidconnect.7.0.3.nupkg.sha512",
-    "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.3.0\\microsoft.identitymodel.tokens.8.3.0.nupkg.sha512",
+    "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.0.3\\microsoft.identitymodel.tokens.7.0.3.nupkg.sha512",
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\Knut Edvard Kjersem\\.nuget\\packages\\npgsql\\9.0.2\\npgsql.9.0.2.nupkg.sha512",
