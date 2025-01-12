@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using RoomService.Models;
 using RoomService.Services;
 
+
+
 namespace RoomService.Controllers;
 
 [Route("api/[controller]")]
@@ -15,87 +17,86 @@ public class RoomsController : ControllerBase
     {
         _roomService = roomService;
     }
-    
+
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+    public async Task<IActionResult> GetAllRooms()
     {
         var rooms = await _roomService.GetAllRoomsAsync();
         return Ok(rooms);
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Room>> GetRoom(int id)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetRoomById(int id)
     {
         var room = await _roomService.GetRoomByIdAsync(id);
         if (room == null)
         {
-            return NotFound();
+            return NotFound(new { Message = $"Room with ID {id} not found." });
         }
+
         return Ok(room);
     }
-    
-    /*[Authorize(Roles = "Admin")]
-    [HttpGet("debug-token")]
-    public IActionResult DebugToken()
+
+    [HttpGet("room-number/{roomNumber}")]
+    public async Task<IActionResult> GetRoomByRoomNumber(string roomNumber)
     {
-        var claims = User.Claims.Select(c => new { c.Type, c.Value });
-        return Ok(claims);
-    }*/
-    
-    [HttpPost("add-room")]
-    public async Task<ActionResult<Room>> PostRoom(Room room)
-    {
-        var createdRoom = await _roomService.AddRoomAsync(room);
-        return CreatedAtAction(nameof(GetRoom), new { id = createdRoom.Id }, createdRoom);
+        var room = await _roomService.GetRoomByRoomNumberAsync(roomNumber);
+        if (room == null)
+        {
+            return NotFound(new { Message = $"Room with number {roomNumber} not found." });
+        }
+
+        return Ok(room);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutRoom(int id, Room updatedRoom)
+    [HttpGet("dirty")]
+    public async Task<IActionResult> GetDirtyRooms()
     {
+        var dirtyRooms = await _roomService.GetDirtyRoomsAsync();
+        return Ok(dirtyRooms);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddRoom([FromBody] Room room)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var createdRoom = await _roomService.AddRoomAsync(room);
+        return CreatedAtAction(nameof(GetRoomById), new { id = createdRoom.Id }, createdRoom);
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateRoom(int id, [FromBody] Room updatedRoom)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         var room = await _roomService.UpdateRoomAsync(id, updatedRoom);
         if (room == null)
         {
-            return NotFound();
+            return NotFound(new { Message = $"Room with ID {id} not found." });
         }
-        return NoContent();
+
+        return Ok(room);
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteRoom(int id)
     {
         var success = await _roomService.DeleteRoomAsync(id);
         if (!success)
         {
-            return NotFound();
+            return NotFound(new { Message = $"Room with ID {id} not found." });
         }
+
         return NoContent();
     }
-    [HttpGet("available")]
-    public async Task<ActionResult<Room>> GetRoomByRoomNumber(string roomNumber)
-    {
-        var room = await _roomService.GetRoomByRoomNumberAsync(roomNumber);
-        if (room == null)
-        {
-            return NotFound();
-        }
-        return Ok(room);
-    }
-    
-  
+}
 
-        [HttpGet("dirty-rooms")]
-        public async Task<ActionResult<IEnumerable<Room>>> GetDirtyRooms()
-        {
-            var dirtyRooms = await _roomService.GetDirtyRoomsAsync();
-            if (!dirtyRooms.Any())
-            {
-                return NotFound("No dirty rooms found.");
-            }
-
-            return Ok(dirtyRooms);
-        }
-    }
-
-    
 
 

@@ -26,6 +26,12 @@ public class RoomService : IRoomService
 
     public async Task<Room> AddRoomAsync(Room room)
     {
+        if (string.IsNullOrWhiteSpace(room.RoomNumber))
+            throw new ArgumentException("RoomNumber is required.");
+
+        if (room.Capacity <= 0)
+            throw new ArgumentException("Capacity must be greater than zero.");
+
         _context.Rooms.Add(room);
         await _context.SaveChangesAsync();
         return room;
@@ -64,18 +70,15 @@ public class RoomService : IRoomService
 
     public async Task<Room?> GetRoomByRoomNumberAsync(string roomNumber)
     {
-        return await _context.Rooms.FindAsync(roomNumber);
-        
+        return await _context.Rooms.FirstOrDefaultAsync(r => r.RoomNumber == roomNumber);
     }
-    
+
     public async Task<IEnumerable<Room>> GetDirtyRoomsAsync()
     {
-        // Query to fetch rooms where the status is 'In Need of Cleaning'
         return await _context.Rooms
-            .Where(r => r.Status == "In Need of Cleaning")
+            .Where(r => r.Status == RoomStatus.Dirty)
             .ToListAsync();
     }
 
-    
-    
+
 }
