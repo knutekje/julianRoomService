@@ -1,4 +1,5 @@
 using System.Text;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using RoomService;
 using RoomService.Data;
@@ -35,7 +36,7 @@ builder.Services.AddHttpClient<AuthServiceClient>(client =>
     client.BaseAddress = new Uri("https://auth-service:8443");
 }); 
 
-builder.Services.AddSingleton<IMessagePublisher, RabbitMessagePublisher>();
+builder.Services.AddScoped<IMessagePublisher, MassTransitPublisher>();
 
 
 
@@ -68,6 +69,23 @@ builder.WebHost.ConfigureKestrel((context, options) =>
             listenOptions.UseHttps(certPath, certPassword);
         });
     }
+});
+
+
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((context, cfg) =>
+    {
+        var rabbitHost = builder.Configuration["RabbitMQ__Host"] ?? "localhost";
+        var rabbitUser = builder.Configuration["RabbitMQ__UserName"] ?? "guest";
+        var rabbitPass = builder.Configuration["RabbitMQ__Password"] ?? "guest";
+
+        cfg.Host(rabbitHost, "/", hostConfig =>
+        {
+            hostConfig.Username(rabbitUser);
+            hostConfig.Password(rabbitPass);
+        });
+    });
 });
 
 

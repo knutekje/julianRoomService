@@ -2,5 +2,5 @@ namespace RoomService.Services;
 
 public interface IMessagePublisher
 {
-    Task PublishMessageAsync(string message, string queueName);
+    Task PublishAsync<T>(T message) where T : class;
 }
