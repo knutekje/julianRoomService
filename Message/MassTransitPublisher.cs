@@ -1,6 +1,6 @@
 using MassTransit;
 
-namespace RoomService.Services;
+namespace RoomService.Message;
 
 public class MassTransitPublisher : IMessagePublisher
 {

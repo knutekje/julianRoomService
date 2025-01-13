@@ -1,4 +1,4 @@
-namespace RoomService.Services;
+namespace RoomService.Message;
 
 public interface IMessagePublisher
 {

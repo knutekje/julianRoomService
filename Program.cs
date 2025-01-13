@@ -6,6 +6,7 @@ using RoomService.Data;
 using RoomService.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using RoomService.Message;
 using RoomService.Middleware;
 
 
