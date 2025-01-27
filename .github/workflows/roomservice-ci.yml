@@ -28,7 +28,7 @@ jobs:
       run: dotnet test
 
     - name: Build Docker image
-      run: docker build -t knutekje/roomservice:${{ github.sha }} -f ./Dockerfile .
+      run: docker build -t knutekje/julianroomservice:${{ github.sha }} -f ./Dockerfile .
 
     - name: Log in to DockerHub
       if: success()
@@ -36,4 +36,4 @@ jobs:
 
     - name: Push Docker image
       if: success()
-      run: docker push knutekje/roomservice:${{ github.sha }}
+      run: docker push knutekje/julianroomservice:${{ github.sha }}
